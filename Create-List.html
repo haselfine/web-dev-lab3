@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+</head>
+<body>
+
+    <p>Enter some text to add to the list</p>
+    <input type = "text" id = "input-text">
+    <br>
+    <button id = "btn-add">Add</button>
+    <button id = "btn-clear">Clear</button>
+
+    <ul id = "list-ul"></ul>
+    <br>
+
+<script>
+
+    let addButton = document.querySelector('#btn-add')
+    let textInput = document.querySelector('#input-text')
+    let unorderedList = document.querySelector('#list-ul')
+    let clearButton = document.querySelector("#btn-clear")
+
+    addButton.addEventListener('click', function(){
+        let item = textInput.value;
+        if(unorderedList.childElementCount == 10){
+            alert('You can only have 10 items')
+        } else if (item.length > 50 || item.length == 0) {
+            alert('Item must be between 1 and 50 characters');
+        } else {
+            let listItem = document.createElement('li');
+            listItem.innerHTML = item;
+            unorderedList.appendChild(listItem);
+            textInput.value = '';
+        }
+    })
+
+    clearButton.addEventListener('click', function(){
+        unorderedList.innerHTML = ''
+    })
+
+</script>
+
+</body>
+</html>
