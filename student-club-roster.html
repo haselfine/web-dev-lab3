@@ -65,20 +65,44 @@
     studentCount.innerHTML = '0'
 
     btnAddStudents.addEventListener('click', function(){
-        let newNameStudent = nameStudent.value;
+        let attributes = {Name: nameStudent.value,
+                        Id: idStudent.value,
+                        GPA: gpaStudent.value}
+        
+        /*let newNameStudent = nameStudent.value;
         let newIdStudent = idStudent.value;
-        let newGpaStudent = gpaStudent.value;
-        let listItem = document.createElement('li')
-        listItem.innerHTML = newNameStudent + ", id: " + newIdStudent + ", GPA: " + newGpaStudent
-        listStudent.appendChild(listItem)
-        listItem.addEventListener('click', function(){
-            if(listItem.className == 'selected'){
-                listItem.classList.remove('selected')
-            } else {
-                listItem.classList.add('selected')
+        let newGpaStudent = gpaStudent.value;*/
+        
+        let errors = []
+
+        Object.getOwnPropertyNames(attributes).forEach(function(key){ //Jordan and I worked on this
+            console.log(attributes[key])
+            if(attributes[key] == ""){
+                errors.push(`Must enter ${key}`)
             }
+            
         })
-        studentCount.innerHTML = listStudent.childElementCount
+
+        if(attributes.GPA < 0 || attributes.GPA > 4){
+            errors.push('GPA must be be between 0 and 4')
+        }
+        
+        if(errors.length > 0){
+            let errorMsg = errors.join('\n')
+            alert(errorMsg)
+        } else {
+            let listItem = document.createElement('li')
+            listItem.innerHTML = newNameStudent + ", id: " + newIdStudent + ", GPA: " + newGpaStudent
+            listStudent.appendChild(listItem)
+            listItem.addEventListener('click', function(){
+                if(listItem.className == 'selected'){
+                    listItem.classList.remove('selected')
+                } else {
+                    listItem.classList.add('selected')
+                }
+            })
+            studentCount.innerHTML = listStudent.childElementCount
+        }
     })
 
     btnRemoveStudents.addEventListener('click', function(){
